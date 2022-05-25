@@ -14,7 +14,7 @@
 
   let avatar, fileinput, node, imageWidth, avatarElm
 
-  let descriptionSize = 31
+  let descriptionSize = 70
   let isCopy = false
   let saving = false
   let imageZoom = 90
@@ -101,7 +101,7 @@
     bind:this={node}
     class="bg relative h-[600px] w-[600px] overflow-hidden mx-auto"
   >
-    <svg viewBox="0 0 300 300">
+    <svg viewBox="0 0 300 300" class="absolute top-16">
       <path
         id="curve"
         d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6c111.3,1.2,170.8,90.3,175.1,97"
@@ -111,13 +111,15 @@
         <textPath
           xlink:href="#curve"
           class="fill-[#71CC00]"
+          text-anchor="end"
+          startOffset="55%"
           style={`font-size: ${descriptionSize}px;`}
         >
           {title}
         </textPath>
       </text>
     </svg>
-    <svg viewBox="0 0 300 300" class="absolute top-28 left-16">
+    <svg viewBox="0 0 300 300" class="absolute top-48 left-16">
       <path
         id="curve"
         d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6c111.3,1.2,170.8,90.3,175.1,97"
@@ -127,13 +129,15 @@
         <textPath
           xlink:href="#curve"
           class="fill-[#71CC00]"
+          text-anchor="end"
+          startOffset="55%"
           style={`font-size: ${descriptionSize}px;`}
         >
           {title}
         </textPath>
       </text>
     </svg>
-    <svg viewBox="0 0 300 300" class="absolute top-56 left-32">
+    <svg viewBox="0 0 300 300" class="absolute top-80 left-32">
       <path
         id="curve"
         d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6c111.3,1.2,170.8,90.3,175.1,97"
@@ -143,6 +147,8 @@
         <textPath
           xlink:href="#curve"
           class="fill-[#71CC00]"
+          text-anchor="end"
+          startOffset="55%"
           style={`font-size: ${descriptionSize}px;`}
         >
           {title}
@@ -199,8 +205,8 @@
     <p class="text-xl w-1/3">ขนาดตัวหนังสือ</p>
     <input
       type="range"
-      min="20"
-      max="80"
+      min="50"
+      max="100"
       bind:value={descriptionSize}
       class="slider"
     />
