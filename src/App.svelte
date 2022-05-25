@@ -2,8 +2,6 @@
   import { saveAs } from "file-saver"
   import { copyImageToClipboard } from "copy-image-clipboard"
 
-  import logo from "./assets/ophtus-logo.png"
-  import placeholder from "./assets/9arm-ophtus.jpg"
   import domtoimage from "dom-to-image"
   import Kofi from "./lib/Kofi.svelte"
   import Social from "./lib/Social.svelte"
@@ -11,9 +9,7 @@
   import { onMount } from "svelte"
   import pasteImage from "paste-image"
 
-  let title = "Ophtusify"
-  let description =
-    "ไม่ต้องรอแฟนเพจ ชาวเน็ตออกโรงเอง ฟอนต์ใหญ่ทะลุจอ ไม่ต้องจ้องให้เมื่อยตา!"
+  let title = "ทำงาน"
   let url = "https://ophtusify.narze.live/"
 
   let avatar, fileinput, node, imageWidth, avatarElm
@@ -88,90 +84,90 @@
 </svelte:head>
 
 <Kofi name="narze" label="Support Me" />
-<Social {url} {title} {description} />
+<Social {url} {title} description={""} />
 
 <main
   class="p-12 min-h-screen grid place-content-center gap-4 scale-[0.6] sm:scale-75 md:scale-90 lg:scale-100"
 >
   <div class="flex flex-col">
     <h1
-      class="text-6xl mb-4 font-bold text-transparent text-center uppercase bg-clip-text bg-gradient-to-br from-[#6215f1] to-[#1b3efa]"
+      class="text-6xl mb-4 font-bold text-transparent text-center uppercase bg-clip-text bg-gradient-to-br text-[#71CC00]"
     >
-      Ophtusify 🕶
+      Working Working Working
     </h1>
   </div>
 
-  <div bind:this={node} class="bg relative h-[600px] w-[600px] overflow-hidden">
-    <div class="relative m-[2.5%] h-[95%] w-[95%] overflow-hidden">
-      <div
-        class="absolute -top-[15px] -left-[15px] h-[600px] w-[600px] rotate-45 scale-[1.3] overflow-hidden bg-black"
-      >
-        <div class="absolute h-full w-full -rotate-45">
-          <div class="absolute top-20 left-20 right-20 bottom-0">
-            <img
-              bind:this={avatarElm}
-              on:load={() => onAvatarLoad()}
-              class="absolute -top-20 left-0 max-w-none h-full cursor-move"
-              style="transform: scale({imageZoom /
-                100}); left:calc(50% - {imageWidth / 2}px)"
-              src={avatar || placeholder}
-              alt=""
-            />
-          </div>
-        </div>
-        <div
-          class="bg-gradient absolute left-24 bottom-0 h-1/2 w-full -rotate-45 pointer-events-none"
-        />
-      </div>
-    </div>
-    <div class="absolute top-0 left-0 right-0 bottom-0 pointer-events-none">
-      <img src={logo} class="m-8 w-40" alt="" />
-    </div>
-    <div
-      class="absolute h-1/4 bottom-[2.5%] left-[2.5%] right-[2.5%] text-white mx-4 "
-    >
-      <!-- <h1
+  <div
+    bind:this={node}
+    class="bg relative h-[600px] w-[600px] overflow-hidden mx-auto"
+  >
+    <svg viewBox="0 0 300 300">
+      <path
+        id="curve"
+        d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6c111.3,1.2,170.8,90.3,175.1,97"
+        class="fill-transparent"
+      />
+      <text width="300">
+        <textPath xlink:href="#curve" class="text-6xl fill-[#71CC00]">
+          {title}
+        </textPath>
+      </text>
+    </svg>
+    <svg viewBox="0 0 300 300" class="absolute top-28 left-16">
+      <path
+        id="curve"
+        d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6c111.3,1.2,170.8,90.3,175.1,97"
+        class="fill-transparent"
+      />
+      <text width="300">
+        <textPath xlink:href="#curve" class="text-6xl fill-[#71CC00]">
+          {title}
+        </textPath>
+      </text>
+    </svg>
+    <svg viewBox="0 0 300 300" class="absolute top-56 left-32">
+      <path
+        id="curve"
+        d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6c111.3,1.2,170.8,90.3,175.1,97"
+        class="fill-transparent"
+      />
+      <text width="300">
+        <textPath xlink:href="#curve" class="text-6xl fill-[#71CC00]">
+          {title}
+        </textPath>
+      </text>
+    </svg>
+  </div>
+  <div class=" h-1/4 bottom-[2.5%] left-[2.5%] right-[2.5%] text-white mx-4 ">
+    <!-- <h1
         class="text-4xl mb-2 font-bold text-transparent bg-clip-text bg-gradient-to-br from-[#6215f1] to-[#1b3efa]"
       >
         {title}
       </h1> -->
-      <!-- <h1 class="text-4xl mb-2 font-bold text-[#6215f1]">
+    <!-- <h1 class="text-4xl mb-2 font-bold text-[#6215f1]">
         {title}
       </h1> -->
 
-      <!-- svelte-ignore a11y-autofocus -->
-      <input
-        class={`${
-          saving
-            ? "border-2 border-transparent resize-none"
-            : "border-2 border-[#6215f188] rounded-xl"
-        } caret-white absolute -top-2 bg-transparent text-4xl font-bold text-[#6215f1] appearance-none rounded w-full leading-tight focus:outline-none focus:border-[#6215f1]`}
-        type="text"
-        autofocus={true}
-        bind:value={title}
-      />
-      <!-- <p
+    <!-- svelte-ignore a11y-autofocus -->
+    <input
+      class={`${
+        saving
+          ? "border-2 border-transparent resize-none"
+          : "border-2 border-[#6215f188] rounded-xl"
+      } caret-white text-center -top-2 bg-transparent text-4xl font-bold text-[#6215f1] appearance-none rounded w-full leading-tight focus:outline-none focus:border-[#6215f1]`}
+      type="text"
+      autofocus={true}
+      bind:value={title}
+    />
+    <!-- <p
         style={`font-size: ${descriptionSize}px;`}
         class={`text-white font-medium`}
       >
         {description}
       </p> -->
-
-      <textarea
-        rows="2"
-        style={`font-size: ${descriptionSize}px;`}
-        class={`${
-          saving
-            ? "border-2 border-transparent resize-none overflow-y-hidden"
-            : "border-2 border-[#6215f188] rounded-xl"
-        } absolute top-10 bg-transparent appearance-none h-28 rounded w-full text-white leading-tight focus:outline-none focus:border-[#6215f1] overflow-clip"`}
-        type="text"
-        bind:value={description}
-      />
-    </div>
   </div>
 
-  <p class="text-white text-center text-sm">
+  <!-- <p class="text-white text-center text-sm">
     วิธีใช้: แก้ไขคำตามใจชอบ เลื่อนภาพด้วยการคลิกที่ภาพแล้วลาก<br
     />อัปโหลดภาพหรือ Paste ภาพจากคลิปบอร์ด
   </p>
@@ -185,9 +181,9 @@
       bind:value={imageZoom}
       class="slider"
     />
-  </div>
+  </div> -->
 
-  <div class="flex gap-8 overflow-hidden text-white items-center">
+  <!-- <div class="flex gap-8 overflow-hidden text-white items-center">
     <p class="text-xl w-1/3">ขนาดตัวหนังสือ</p>
     <input
       type="range"
@@ -196,7 +192,7 @@
       bind:value={descriptionSize}
       class="slider"
     />
-  </div>
+  </div> -->
 
   <div class="flex flex-row gap-2">
     <button
@@ -261,8 +257,9 @@
   }
 
   .bg {
-    background: rgb(98, 21, 241);
-    background: linear-gradient(113deg, #6215f1 0%, #1b3efa 100%);
+    /* background: rgb(98, 21, 241);
+    background: linear-gradient(113deg, #6215f1 0%, #1b3efa 100%); */
+    background-color: black;
   }
 
   .bg-gradient {
