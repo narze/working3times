@@ -108,7 +108,11 @@
         class="fill-transparent"
       />
       <text width="300">
-        <textPath xlink:href="#curve" class="text-6xl fill-[#71CC00]">
+        <textPath
+          xlink:href="#curve"
+          class="fill-[#71CC00]"
+          style={`font-size: ${descriptionSize}px;`}
+        >
           {title}
         </textPath>
       </text>
@@ -120,7 +124,11 @@
         class="fill-transparent"
       />
       <text width="300">
-        <textPath xlink:href="#curve" class="text-6xl fill-[#71CC00]">
+        <textPath
+          xlink:href="#curve"
+          class="fill-[#71CC00]"
+          style={`font-size: ${descriptionSize}px;`}
+        >
           {title}
         </textPath>
       </text>
@@ -132,7 +140,11 @@
         class="fill-transparent"
       />
       <text width="300">
-        <textPath xlink:href="#curve" class="text-6xl fill-[#71CC00]">
+        <textPath
+          xlink:href="#curve"
+          class="fill-[#71CC00]"
+          style={`font-size: ${descriptionSize}px;`}
+        >
           {title}
         </textPath>
       </text>
@@ -183,7 +195,7 @@
     />
   </div> -->
 
-  <!-- <div class="flex gap-8 overflow-hidden text-white items-center">
+  <div class="flex gap-8 overflow-hidden text-white items-center">
     <p class="text-xl w-1/3">ขนาดตัวหนังสือ</p>
     <input
       type="range"
@@ -192,7 +204,7 @@
       bind:value={descriptionSize}
       class="slider"
     />
-  </div> -->
+  </div>
 
   <div class="flex flex-row gap-2">
     <button
