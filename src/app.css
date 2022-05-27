@@ -269,9 +269,52 @@
 
 /* Layiji TarMineTine */
 @font-face {
-  font-family: "Layiji TarMineTine1";
+  font-family: "Layiji TarMineTine";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
   src: url("/fonts/layiji_TarMineTine1.ttf") format("truetype");
+}
+/* Layiji TarMineTine2 */
+@font-face {
+  font-family: "Layiji TarMineTine2";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/layiji_TarMineTine2.ttf") format("truetype");
+}
+
+/* Layiji LenRoonRang */
+@font-face {
+  font-family: "Layiji LenRoonRang";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/Layiji_lenroonrang.ttf") format("truetype");
+}
+
+/* SOV_RongNang */
+@font-face {
+  font-family: "SOV_RongNang";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/SOV_RongNang.ttf") format("truetype");
+}
+
+/* FC Catalyst */
+@font-face {
+  font-family: "FC Catalyst";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/FC Catalyst.ttf") format("truetype");
+}
+/* FCGimmick-Bold */
+@font-face {
+  font-family: "FCGimmick-Bold";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/FCGimmick-Bold.ttf") format("truetype");
 }

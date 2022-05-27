@@ -17,6 +17,16 @@
   const curve3 = "M 30, 10 C 130,-35 160,-40 270,-25"
   const underline = "M0,-5 Q60,-20 120,-20 L122,0 Q60,0 3,14 L0,-5"
 
+  const fonts = [
+    "Layiji TarMineTine",
+    "Layiji LenRoonRang",
+    "FC Catalyst",
+    "SOV_RongNang",
+    "FCGimmick-Bold",
+  ]
+
+  let selectedFont = fonts[0]
+
   let avatar, fileinput, node, imageWidth, avatarElm
 
   let descriptionSize = 70
@@ -119,7 +129,7 @@
           class="fill-[#71CC00]"
           text-anchor="end"
           startOffset="100%"
-          style={`font-family: "Layiji TarMineTine1"; font-size: ${descriptionSize}px;`}
+          style={`font-family: "${selectedFont}"; font-size: ${descriptionSize}px;`}
         >
           {title}
         </textPath>
@@ -137,7 +147,7 @@
           class="fill-[#71CC00]"
           text-anchor="end"
           startOffset="100%"
-          style={`font-family: "Layiji TarMineTine1"; font-size: ${descriptionSize}px;`}
+          style={`font-family: "${selectedFont}"; font-size: ${descriptionSize}px;`}
         >
           {title}
         </textPath>
@@ -155,7 +165,7 @@
           class="fill-[#71CC00]"
           text-anchor="end"
           startOffset="100%"
-          style={`font-family: "Layiji TarMineTine1"; font-size: ${descriptionSize}px;`}
+          style={`font-family: "${selectedFont}"; font-size: ${descriptionSize}px;`}
         >
           {title}
         </textPath>
@@ -193,12 +203,15 @@
       autofocus={true}
       bind:value={title}
     />
-    <!-- <p
-        style={`font-size: ${descriptionSize}px;`}
-        class={`text-white font-medium`}
-      >
-        {description}
-      </p> -->
+
+    <!-- Font selections -->
+    <select bind:value={selectedFont}>
+      {#each fonts as font}
+        <option value={font}>
+          {font}
+        </option>
+      {/each}
+    </select>
   </div>
 
   <!-- <p class="text-white text-center text-sm">
