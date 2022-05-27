@@ -119,7 +119,7 @@
           class="fill-[#71CC00]"
           text-anchor="end"
           startOffset="100%"
-          style={`font-size: ${descriptionSize}px;`}
+          style={`font-family: "Layiji TarMineTine1"; font-size: ${descriptionSize}px;`}
         >
           {title}
         </textPath>
@@ -137,7 +137,7 @@
           class="fill-[#71CC00]"
           text-anchor="end"
           startOffset="100%"
-          style={`font-size: ${descriptionSize}px;`}
+          style={`font-family: "Layiji TarMineTine1"; font-size: ${descriptionSize}px;`}
         >
           {title}
         </textPath>
@@ -155,7 +155,7 @@
           class="fill-[#71CC00]"
           text-anchor="end"
           startOffset="100%"
-          style={`font-size: ${descriptionSize}px;`}
+          style={`font-family: "Layiji TarMineTine1"; font-size: ${descriptionSize}px;`}
         >
           {title}
         </textPath>
