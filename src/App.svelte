@@ -99,8 +99,8 @@
   />
 </svelte:head>
 
-<Kofi name="narze" label="Support Me" />
-<Social {url} {title} description={""} />
+<!-- <Kofi name="narze" label="Support Me" /> -->
+<!-- <Social {url} {title} description={""} /> -->
 
 <main
   class="p-12 min-h-screen grid place-content-center gap-4 scale-[0.6] sm:scale-75 md:scale-90 lg:scale-100"
@@ -191,8 +191,7 @@
     class="flex flex-col gap-3 h-1/4 bottom-[2.5%] left-[2.5%] right-[2.5%] text-white mx-4"
   >
     <!-- <h1
-        class="text-4xl mb-2 font-bold text-transparent bg-clip-text bg-gradient-to-br from-[#6215f1] to-[#1b3efa]"
-      >
+        class="text-4xl mb-2 font-bold text-transparent bg-clip-text bg-gradient-to-br from-[#6215f1] 71CC00-[#1b3efa]"71CC33>
         {title}
       </h1> -->
     <!-- <h1 class="text-4xl mb-2 font-bold text-[#6215f1]">
@@ -204,8 +203,8 @@
       class={`${
         saving
           ? "border-2 border-transparent resize-none"
-          : "border-2 border-[#6215f188] rounded-xl"
-      } caret-white text-center -top-2 bg-transparent text-4xl font-bold text-[#6215f1] appearance-none rounded w-full leading-tight focus:outline-none focus:border-[#6215f1]`}
+          : "border-2 border-[#71CC0088] rounded-xl"
+      } caret-white text-center -top-2 bg-transparent text-4xl font-bold text-[#71CC00] appearance-none rounded w-full leading-tight focus:outline-none focus:border-[#6215f1]`}
       type="text"
       autofocus={true}
       bind:value={title}
@@ -271,7 +270,7 @@
       bind:this={fileinput}
     />
     <button
-      class="text-white text-center text-xl border-2 border-slate-400 rounded px-2 py-4 basis-full bg-gradient-to-r from-[#6215f1] to-[#1b3efa] hover:border-[#6215f1]"
+      class="text-white text-center text-xl border-2 border-slate-400 rounded px-2 py-4 basis-full bg-gradient-to-r from-[#71CC00] to-[#71CC33] hover:border-[#6215f1]"
       on:click={() => {
         downloadImage()
       }}
@@ -279,7 +278,7 @@
       ดาวน์โหลด
     </button>
     <button
-      class="text-white text-center text-xl border-2 border-slate-400 rounded px-2 py-4 basis-full bg-gradient-to-r from-[#6215f1] to-[#1b3efa] hover:border-[#6215f1]"
+      class="text-white text-center text-xl border-2 border-slate-400 rounded px-2 py-4 basis-full bg-gradient-to-r from-[#71CC00] to-[#71CC33] hover:border-[#6215f1]"
       on:click={copyImage}
     >
       {isCopy ? "Copied" : "คัดลอก"}
@@ -292,21 +291,27 @@
   <a
     href="https://github.com/narze/working3times"
     target="_blank"
-    class="text-white text-sm bg-gradient-to-r from-[#6215f1] to-[#1b3efa] px-2 py-1 rounded-md mx-1"
+    class="text-white text-sm bg-gradient-to-r from-[#71CC00] to-[#71CC33] px-2 py-1 rounded-md mx-1"
     >Github</a
   >
   <a
     href="https://twitch.narze.live"
     target="_blank"
-    class="text-white text-sm bg-gradient-to-r from-[#6215f1] to-[#1b3efa] px-2 py-1 rounded-md mx-1"
+    class="text-white text-sm bg-gradient-to-r from-[#71CC00] to-[#71CC33] px-2 py-1 rounded-md mx-1"
     >Twitch</a
   >
   <a
+    href="https://f0nt.com"
+    target="_blank"
+    class="text-white text-sm bg-gradient-to-r from-[#71CC00] to-[#71CC33] px-2 py-1 rounded-md mx-1"
+    >ฟ้อนต์จาก f0nt.com</a
+  >
+  <!-- <a
     href="https://www.youtube.com/watch?v=nlQJHIfpaYo"
     target="_blank"
-    class="text-white text-sm bg-gradient-to-r from-[#6215f1] to-[#1b3efa] px-2 py-1 rounded-md mx-1"
+    class="text-white text-sm bg-gradient-to-r from-[#71CC00] to-[#71CC33] px-2 py-1 rounded-md mx-1"
     >Live Code VOD</a
-  >
+  > -->
 </div>
 
 <style lang="postcss">
