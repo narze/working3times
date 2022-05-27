@@ -10,7 +10,7 @@
   import pasteImage from "paste-image"
 
   let title = "ทำงาน"
-  let url = "https://ophtusify.narze.live/"
+  let url = "https://working3times.narze.live/"
 
   const curve1 = "M 30, 10 C 130,-25 160,-30 270,-25"
   const curve2 = "M 30, 10 C 130,-30 160,-35 270,-25"
@@ -19,7 +19,7 @@
 
   const fonts = [
     "Layiji TarMineTine",
-    "Layiji LenRoonRang",
+    // "Layiji LenRoonRang",
     "FC Catalyst",
     "SOV_RongNang",
     "FCGimmick-Bold",
@@ -30,7 +30,7 @@
   let avatar, fileinput, node, imageWidth, avatarElm
 
   let descriptionSize = 70
-  let spacing = 10
+  let spacing = 30
   let isCopy = false
   let saving = false
   let imageZoom = 90
@@ -64,7 +64,7 @@
     domtoimage
       .toPng(node)
       .then(function (blob) {
-        saveAs(blob, `ophtusify-[${title}].png`)
+        saveAs(blob, `${title}.png`)
         saving = false
       })
       .catch(function (error) {
@@ -117,72 +117,79 @@
     bind:this={node}
     class="bg relative h-[600px] w-[600px] overflow-hidden mx-auto"
   >
-    <svg
-      viewBox="0 0 300 300"
-      class="absolute top-48 right-0 overflow-visible"
-      style={`transform: translateY(${spacing * 0}px);`}
+    <div
+      class={`absolute inset-0`}
+      style={`transform: translateY(${-spacing + 40}px);`}
     >
-      <path id="curve" d={curve1} class="fill-transparent" />
-      <text width="600">
-        <textPath
-          xlink:href="#curve"
-          class="fill-[#71CC00]"
-          text-anchor="end"
-          startOffset="100%"
-          style={`font-family: "${selectedFont}"; font-size: ${descriptionSize}px;`}
-        >
-          {title}
-        </textPath>
-      </text>
-    </svg>
-    <svg
-      viewBox="0 0 300 300"
-      class="absolute top-64 left-4 overflow-visible"
-      style={`transform: translateY(${spacing * 1}px);`}
-    >
-      <path id="curve" d={curve2} class="fill-transparent" />
-      <text width="300">
-        <textPath
-          xlink:href="#curve"
-          class="fill-[#71CC00]"
-          text-anchor="end"
-          startOffset="100%"
-          style={`font-family: "${selectedFont}"; font-size: ${descriptionSize}px;`}
-        >
-          {title}
-        </textPath>
-      </text>
-    </svg>
-    <svg
-      viewBox="0 0 300 300"
-      class="absolute top-80 left-8 overflow-visible"
-      style={`transform: translateY(${spacing * 2}px);`}
-    >
-      <path id="curve" d={curve3} class="fill-transparent" />
-      <text width="300" height="300">
-        <textPath
-          xlink:href="#curve"
-          class="fill-[#71CC00]"
-          text-anchor="end"
-          startOffset="100%"
-          style={`font-family: "${selectedFont}"; font-size: ${descriptionSize}px;`}
-        >
-          {title}
-        </textPath>
-      </text>
-    </svg>
-    <svg
-      viewBox="-60 0 200 100"
-      width={`${(100 * descriptionSize) / 70}%`}
-      class="absolute top-96 right-0 overflow-visible"
-      style={`transform: translateY(${
-        spacing * 2 - 36
-      }px); transform-origin: top right;`}
-    >
-      <path d={underline} class="fill-[#71CC00]" />
-    </svg>
+      <svg
+        viewBox={`${0 + 30 - (descriptionSize - 70)} -10 300 300`}
+        class="absolute top-48 right-0 overflow-visible"
+        style={`transform: translateY(${spacing * 0}px);`}
+      >
+        <path id="curve" d={curve1} class="fill-transparent" />
+        <text width="600">
+          <textPath
+            xlink:href="#curve"
+            class="fill-[#71CC00]"
+            text-anchor="end"
+            startOffset="100%"
+            style={`font-family: "${selectedFont}"; font-size: ${descriptionSize}px;`}
+          >
+            {title}
+          </textPath>
+        </text>
+      </svg>
+      <svg
+        viewBox={`${0 + 30 - (descriptionSize - 70)} -10 300 300`}
+        class="absolute top-64 left-4 overflow-visible"
+        style={`transform: translateY(${spacing * 1}px);`}
+      >
+        <path id="curve" d={curve2} class="fill-transparent" />
+        <text width="300">
+          <textPath
+            xlink:href="#curve"
+            class="fill-[#71CC00]"
+            text-anchor="end"
+            startOffset="100%"
+            style={`font-family: "${selectedFont}"; font-size: ${descriptionSize}px;`}
+          >
+            {title}
+          </textPath>
+        </text>
+      </svg>
+      <svg
+        viewBox={`${0 + 30 - (descriptionSize - 70)} -10 300 300`}
+        class="absolute top-80 left-8 overflow-visible"
+        style={`transform: translateY(${spacing * 2}px);`}
+      >
+        <path id="curve" d={curve3} class="fill-transparent" />
+        <text width="300" height="300">
+          <textPath
+            xlink:href="#curve"
+            class="fill-[#71CC00]"
+            text-anchor="end"
+            startOffset="100%"
+            style={`font-family: "${selectedFont}"; font-size: ${descriptionSize}px;`}
+          >
+            {title}
+          </textPath>
+        </text>
+      </svg>
+      <svg
+        viewBox={`${-60 + 15 - (descriptionSize - 70)} -10 200 100`}
+        width={`${(100 * descriptionSize) / 70}%`}
+        class="absolute top-96 right-0 overflow-visible"
+        style={`transform: translateY(${
+          spacing * 2 - 36
+        }px); transform-origin: top right;`}
+      >
+        <path d={underline} class="fill-[#71CC00]" />
+      </svg>
+    </div>
   </div>
-  <div class=" h-1/4 bottom-[2.5%] left-[2.5%] right-[2.5%] text-white mx-4 ">
+  <div
+    class="flex flex-col gap-3 h-1/4 bottom-[2.5%] left-[2.5%] right-[2.5%] text-white mx-4"
+  >
     <!-- <h1
         class="text-4xl mb-2 font-bold text-transparent bg-clip-text bg-gradient-to-br from-[#6215f1] to-[#1b3efa]"
       >
@@ -205,7 +212,10 @@
     />
 
     <!-- Font selections -->
-    <select bind:value={selectedFont}>
+    <select
+      bind:value={selectedFont}
+      class="text-black px-4 py-2 border rounded text-center mx-auto"
+    >
       {#each fonts as font}
         <option value={font}>
           {font}
@@ -253,14 +263,6 @@
   </div>
 
   <div class="flex flex-row gap-2">
-    <button
-      class="text-white text-center text-xl border-2 border-slate-400 rounded px-2 py-4 basis-full bg-gradient-to-r from-[#6215f1] to-[#1b3efa] hover:border-[#6215f1]"
-      on:click={() => {
-        fileinput.click()
-      }}
-    >
-      อัปโหลดภาพ
-    </button>
     <input
       style="display:none"
       type="file"
@@ -288,7 +290,7 @@
 <!-- Bottom links -->
 <div class="fixed inset-x-0 bottom-16 sm:bottom-4 text-center">
   <a
-    href="https://github.com/narze/ophtusify"
+    href="https://github.com/narze/working3times"
     target="_blank"
     class="text-white text-sm bg-gradient-to-r from-[#6215f1] to-[#1b3efa] px-2 py-1 rounded-md mx-1"
     >Github</a
