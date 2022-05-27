@@ -12,9 +12,15 @@
   let title = "ทำงาน"
   let url = "https://ophtusify.narze.live/"
 
+  const curve1 = "M 30, 10 C 130,-25 160,-30 270,-25"
+  const curve2 = "M 30, 10 C 130,-30 160,-35 270,-25"
+  const curve3 = "M 30, 10 C 130,-35 160,-40 270,-25"
+  const underline = "M0,-5 Q60,-20 120,-20 L122,0 Q60,0 3,14 L0,-5"
+
   let avatar, fileinput, node, imageWidth, avatarElm
 
   let descriptionSize = 70
+  let spacing = 10
   let isCopy = false
   let saving = false
   let imageZoom = 90
@@ -101,59 +107,69 @@
     bind:this={node}
     class="bg relative h-[600px] w-[600px] overflow-hidden mx-auto"
   >
-    <svg viewBox="0 0 300 300" class="absolute top-16">
-      <path
-        id="curve"
-        d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6c111.3,1.2,170.8,90.3,175.1,97"
-        class="fill-transparent"
-      />
-      <text width="300">
+    <svg
+      viewBox="0 0 300 300"
+      class="absolute top-48 right-0 overflow-visible"
+      style={`transform: translateY(${spacing * 0}px);`}
+    >
+      <path id="curve" d={curve1} class="fill-transparent" />
+      <text width="600">
         <textPath
           xlink:href="#curve"
           class="fill-[#71CC00]"
           text-anchor="end"
-          startOffset="55%"
+          startOffset="100%"
           style={`font-size: ${descriptionSize}px;`}
         >
           {title}
         </textPath>
       </text>
     </svg>
-    <svg viewBox="0 0 300 300" class="absolute top-48 left-16">
-      <path
-        id="curve"
-        d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6c111.3,1.2,170.8,90.3,175.1,97"
-        class="fill-transparent"
-      />
+    <svg
+      viewBox="0 0 300 300"
+      class="absolute top-64 left-4 overflow-visible"
+      style={`transform: translateY(${spacing * 1}px);`}
+    >
+      <path id="curve" d={curve2} class="fill-transparent" />
       <text width="300">
         <textPath
           xlink:href="#curve"
           class="fill-[#71CC00]"
           text-anchor="end"
-          startOffset="55%"
+          startOffset="100%"
           style={`font-size: ${descriptionSize}px;`}
         >
           {title}
         </textPath>
       </text>
     </svg>
-    <svg viewBox="0 0 300 300" class="absolute top-80 left-32">
-      <path
-        id="curve"
-        d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6c111.3,1.2,170.8,90.3,175.1,97"
-        class="fill-transparent"
-      />
-      <text width="300">
+    <svg
+      viewBox="0 0 300 300"
+      class="absolute top-80 left-8 overflow-visible"
+      style={`transform: translateY(${spacing * 2}px);`}
+    >
+      <path id="curve" d={curve3} class="fill-transparent" />
+      <text width="300" height="300">
         <textPath
           xlink:href="#curve"
           class="fill-[#71CC00]"
           text-anchor="end"
-          startOffset="55%"
+          startOffset="100%"
           style={`font-size: ${descriptionSize}px;`}
         >
           {title}
         </textPath>
       </text>
+    </svg>
+    <svg
+      viewBox="-60 0 200 100"
+      width={`${(100 * descriptionSize) / 70}%`}
+      class="absolute top-96 right-0 overflow-visible"
+      style={`transform: translateY(${
+        spacing * 2 - 36
+      }px); transform-origin: top right;`}
+    >
+      <path d={underline} class="fill-[#71CC00]" />
     </svg>
   </div>
   <div class=" h-1/4 bottom-[2.5%] left-[2.5%] right-[2.5%] text-white mx-4 ">
@@ -208,6 +224,17 @@
       min="50"
       max="100"
       bind:value={descriptionSize}
+      class="slider"
+    />
+  </div>
+
+  <div class="flex gap-8 overflow-hidden text-white items-center">
+    <p class="text-xl w-1/3">ระยะบรรทัด</p>
+    <input
+      type="range"
+      min="10"
+      max="100"
+      bind:value={spacing}
       class="slider"
     />
   </div>
