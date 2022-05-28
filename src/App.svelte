@@ -290,7 +290,6 @@
 
   async function copyImage() {
     const fontEmbedCSS = await htmlToImage.getFontEmbedCSS(node)
-    console.log({ fontEmbedCSS })
 
     saving = true
     htmlToImage
