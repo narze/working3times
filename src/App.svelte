@@ -11,6 +11,11 @@
   import GraphemeSplitter from "grapheme-splitter"
   import CircleType from "circletype"
   import Moveable from "svelte-moveable"
+  import { Color, ColorInput } from "color-picker-svelte"
+
+  let textColor = new Color("#71CC00")
+  let bgColor = new Color("#000000")
+
   // import Moveable, { OnScale } from "moveable"
 
   let title = "ทำงาน"
@@ -327,8 +332,8 @@
 
   <div
     bind:this={node}
-    class="bg flex items-center justify-center relative h-[600px] w-[600px] overflow-hidden mx-auto"
-    style={`font-family: "${selectedFont}";`}
+    class="flex items-center justify-center relative h-[600px] w-[600px] overflow-hidden mx-auto"
+    style={`font-family: "${selectedFont}"; background-color: ${bgColor.toHex()}`}
   >
     <!-- <div class="target text-white p-20 bg-green-400" bind:this={target}>
       Target
@@ -355,7 +360,7 @@
     >
       <div
         class={`relative text-[#71CC00] text-6xl`}
-        style={`transform: translateY(${-spacing}px);`}
+        style={`transform: translateY(${-spacing}px); color: ${textColor.toHex()}`}
         bind:this={container}
       >
         <div
@@ -402,7 +407,7 @@
               spacing * 2 - 36
             }px); transform-box: fill-box; transform-origin: bottom;`}
           >
-            <path d={underline} class="fill-[#71CC00]" />
+            <path d={underline} style={`fill: ${textColor.toHex()}`} />
           </svg>
         </div>
 
@@ -511,6 +516,11 @@
       bind:value={spacingMicro}
       class="slider"
     />
+  </div>
+
+  <div class="flex flex-row gap-2">
+    <ColorInput bind:color={textColor} title="สีตัวหนังสือ" />
+    <ColorInput bind:color={bgColor} title="สีพื้นหลัง" />
   </div>
 
   <div class="flex flex-row gap-2">

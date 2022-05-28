@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@ctrl/tinycolor@^3.4.1":
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/@ctrl/tinycolor/-/tinycolor-3.4.1.tgz#75b4c27948c81e88ccd3a8902047bcd797f38d32"
+  integrity sha512-ej5oVy6lykXsvieQtqZxCOaLT+xD4+QNarq78cIYISHmZXshCvROLudpQN3lfL8G0NL7plMSSK+zlyvCaIJ4Iw==
+
 "@daybrush/utils@1.6.0", "@daybrush/utils@^1.0.0", "@daybrush/utils@^1.1.1", "@daybrush/utils@^1.3.1", "@daybrush/utils@^1.4.0", "@daybrush/utils@^1.6.0":
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/@daybrush/utils/-/utils-1.6.0.tgz#0dfd2c360764f63380df4ec0d44e176c69f7bbc3"
@@ -240,6 +245,11 @@ color-name@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
   integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
+
+color-picker-svelte@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/color-picker-svelte/-/color-picker-svelte-0.3.0.tgz#9b6018541849818494b20ff8bc476f9b1b016c24"
+  integrity sha512-GkcxxR1/Jr8yUYbpd0vYVlu5RjDgStrZ3+tbZjPdxbijXVtGsoFjYTNkyH4a7peDgVOEshnFiuEhHDMtJ/iZtA==
 
 concat-map@0.0.1:
   version "0.0.1"

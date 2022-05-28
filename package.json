@@ -24,7 +24,9 @@
     "vite": "^2.9.9"
   },
   "dependencies": {
+    "@ctrl/tinycolor": "^3.4.1",
     "circletype": "^2.3.0",
+    "color-picker-svelte": "^0.3.0",
     "copy-image-clipboard": "^2.1.2",
     "file-saver": "^2.0.5",
     "grapheme-splitter": "^1.0.4",
