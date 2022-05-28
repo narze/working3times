@@ -2,12 +2,16 @@
   import { saveAs } from "file-saver"
   import { copyImageToClipboard } from "copy-image-clipboard"
 
-  import domtoimage from "dom-to-image"
+  import * as htmlToImage from "html-to-image"
   import Kofi from "./lib/Kofi.svelte"
   import Social from "./lib/Social.svelte"
   import dragElement from "./lib/dragElement"
-  import { onMount } from "svelte"
+  import { afterUpdate, onMount, tick } from "svelte"
   import pasteImage from "paste-image"
+  import GraphemeSplitter from "grapheme-splitter"
+  import CircleType from "circletype"
+  import Moveable from "svelte-moveable"
+  // import Moveable, { OnScale } from "moveable"
 
   let title = "ทำงาน"
   let url = "https://working3times.narze.live/"
@@ -26,14 +30,33 @@
   ]
 
   let selectedFont = fonts[0]
+  let target
 
-  let avatar, fileinput, node, imageWidth, avatarElm
+  let frame = {
+    matrix: [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+    translate: [0, 0],
+    rotate: 0,
+    transformOrigin: "50% 50%",
+  }
 
-  let descriptionSize = 70
-  let spacing = 30
+  let avatar,
+    fileinput,
+    node,
+    textNode,
+    imageWidth,
+    avatarElm,
+    svgNode,
+    container
+
+  let descriptionSize = 180
+  let spacingMicro = 150
+  $: spacing = spacingMicro / 10
   let isCopy = false
   let saving = false
   let imageZoom = 90
+  // let circleType
+  let el: HTMLElement
+  const splitter = new GraphemeSplitter()
 
   const onAvatarLoad = () => {
     imageWidth = avatarElm.width
@@ -42,12 +65,200 @@
 
   onMount(async () => {
     dragElement(avatarElm)
+
+    // const moveable = new Moveable(document.body, {
+    //   target: document.querySelector(".element") as HTMLElement,
+    //   // If the container is null, the position is fixed. (default: parentElement(document.body))
+    //   container: document.body,
+    //   draggable: true,
+    //   resizable: true,
+    //   scalable: true,
+    //   rotatable: true,
+    //   warpable: true,
+    //   // Enabling pinchable lets you use events that
+    //   // can be used in draggable, resizable, scalable, and rotateable.
+    //   pinchable: true, // ["resizable", "scalable", "rotatable"]
+    //   origin: true,
+    //   keepRatio: true,
+    //   // Resize, Scale Events at edges.
+    //   edge: false,
+    //   throttleDrag: 0,
+    //   throttleResize: 0,
+    //   throttleScale: 0,
+    //   throttleRotate: 0,
+    // })
+
+    // const moveable = new Moveable(document.body, {
+    //   // If you want to use a group, set multiple targets(type: Array<HTMLElement | SVGElement>).
+    //   target: document.querySelector(".element") as HTMLElement,
+    //   resizable: true,
+    //   draggable: true,
+    //   keepRatio: false,
+    //   throttleResize: 1,
+    //   renderDirections: ["nw", "n", "ne", "w", "e", "sw", "s", "se"],
+    //   edge: true,
+    //   zoom: 1,
+    //   origin: true,
+    //   padding: { left: 0, top: 0, right: 0, bottom: 0 },
+    // })
+
+    // /* draggable */
+    // moveable
+    //   .on("dragStart", ({ target, clientX, clientY }) => {
+    //     console.log("onDragStart", target)
+    //   })
+    //   .on(
+    //     "drag",
+    //     ({
+    //       target,
+    //       transform,
+    //       left,
+    //       top,
+    //       right,
+    //       bottom,
+    //       beforeDelta,
+    //       beforeDist,
+    //       delta,
+    //       dist,
+    //       clientX,
+    //       clientY,
+    //     }) => {
+    //       console.log("onDrag left, top", left, top)
+    //       target!.style.left = `${left}px`
+    //       target!.style.top = `${top}px`
+    //       // console.log("onDrag translate", dist);
+    //       // target!.style.transform = transform;
+    //     }
+    //   )
+    //   .on("dragEnd", ({ target, isDrag, clientX, clientY }) => {
+    //     console.log("onDragEnd", target, isDrag)
+    //   })
+
+    // /* resizable */
+    // moveable
+    //   .on("resizeStart", ({ target, clientX, clientY }) => {
+    //     console.log("onResizeStart", target)
+    //   })
+    //   .on(
+    //     "resize",
+    //     ({ target, width, height, dist, delta, clientX, clientY }) => {
+    //       console.log("onResize", target)
+    //       delta[0] && (target!.style.width = `${width}px`)
+    //       delta[1] && (target!.style.height = `${height}px`)
+    //     }
+    //   )
+    //   .on("resizeEnd", ({ target, isDrag, clientX, clientY }) => {
+    //     console.log("onResizeEnd", target, isDrag)
+    //   })
+
+    // /* scalable */
+    // moveable
+    //   .on("scaleStart", ({ target, clientX, clientY }) => {
+    //     console.log("onScaleStart", target)
+    //   })
+    //   .on(
+    //     "scale",
+    //     ({
+    //       target,
+    //       scale,
+    //       dist,
+    //       delta,
+    //       transform,
+    //       clientX,
+    //       clientY,
+    //     }: OnScale) => {
+    //       console.log("onScale scale", scale)
+    //       target!.style.transform = transform
+    //     }
+    //   )
+    //   .on("scaleEnd", ({ target, isDrag, clientX, clientY }) => {
+    //     console.log("onScaleEnd", target, isDrag)
+    //   })
+
+    // /* rotatable */
+    // moveable
+    //   .on("rotateStart", ({ target, clientX, clientY }) => {
+    //     console.log("onRotateStart", target)
+    //   })
+    //   .on(
+    //     "rotate",
+    //     ({ target, beforeDelta, delta, dist, transform, clientX, clientY }) => {
+    //       console.log("onRotate", dist)
+    //       target!.style.transform = transform
+    //     }
+    //   )
+    //   .on("rotateEnd", ({ target, isDrag, clientX, clientY }) => {
+    //     console.log("onRotateEnd", target, isDrag)
+    //   })
   })
 
-  pasteImage.on("paste-image", function (image) {
-    avatar = image.src
-    setTimeout(() => onAvatarLoad(), 500)
-  })
+  let first = true
+
+  $: if (textNode) {
+    if (first) {
+      first = false
+      setTimeout(() => {
+        updateCircleText(title)
+      })
+    } else {
+      updateCircleText(title)
+    }
+  }
+
+  function updateCircleText(text: string) {
+    textNode.innerText = text
+
+    const circleType = new CircleType(
+      textNode,
+      splitter.splitGraphemes.bind(splitter)
+    )
+    circleType.radius(400)
+    // circleType.forceWidth(true)
+
+    const firstLetter: HTMLElement =
+      circleType.element.querySelector("span:first-child")
+
+    if (firstLetter) {
+      // const style: CSSStyleDeclaration = firstLetter.style
+      // console.log(style.getPropertyValue("transform"))
+      const container: HTMLElement = circleType.container
+      // container.style["visibility"] = "hidden"
+      setTimeout(() => {
+        if (firstLetter.attributes["style"]) {
+          const style = firstLetter.attributes["style"].value
+          const rotation = style.match(/rotate\((.+)\)/)[1]
+
+          container.style["transform"] = `rotate(${rotation})`
+          container.style["transform-origin"] = `right bottom`
+        }
+        container.style["visibility"] = "visible"
+        el = circleType.container.cloneNode(true).outerHTML
+      }, 50)
+    }
+  }
+
+  //   // console.log("seese")
+
+  //   // circleType = new CircleType(
+  //   //   textNode,
+  //   //   splitter.splitGraphemes.bind(splitter)
+  //   // )
+  //   // circleType.radius(200).dir(-1)
+  //   circleType.destroy()
+  //   textNode.innerText = e.target.value
+  //   console.log(textNode)
+
+  //   circleType = new CircleType(
+  //     textNode,
+  //     splitter.splitGraphemes.bind(splitter)
+  //   )
+  //   circleType.radius(2000)
+  // }
+
+  // pasteImage.on("paste-image", function (image) {
+  //   avatar = image.src
+  //   setTimeout(() => onAvatarLoad(), 500)
+  // })
 
   function onFileSelected(e) {
     let image = e.target.files[0]
@@ -61,7 +272,7 @@
 
   function downloadImage() {
     saving = true
-    domtoimage
+    htmlToImage
       .toPng(node)
       .then(function (blob) {
         saveAs(blob, `${title}.png`)
@@ -72,10 +283,13 @@
       })
   }
 
-  function copyImage() {
+  async function copyImage() {
+    const fontEmbedCSS = await htmlToImage.getFontEmbedCSS(node)
+    console.log({ fontEmbedCSS })
+
     saving = true
-    domtoimage
-      .toPng(node)
+    htmlToImage
+      .toPng(node, { fontEmbedCSS })
       .then(function (dataUrl) {
         let img = new Image()
         img.src = dataUrl
@@ -92,19 +306,17 @@
   }
 </script>
 
-<svelte:head>
+<!-- <svelte:head>
   <link
     href="https://fonts.googleapis.com/css2?family=Prompt&display=swap"
     rel="stylesheet"
   />
-</svelte:head>
+</svelte:head> -->
 
 <!-- <Kofi name="narze" label="Support Me" /> -->
 <!-- <Social {url} {title} description={""} /> -->
 
-<main
-  class="p-12 min-h-screen grid place-content-center gap-4 scale-[0.6] sm:scale-75 md:scale-90 lg:scale-100"
->
+<main class="p-12 min-h-screen grid place-content-center gap-4">
   <div class="flex flex-col">
     <h1
       class="text-6xl mb-4 font-bold text-transparent text-center uppercase bg-clip-text bg-gradient-to-br text-[#71CC00]"
@@ -115,76 +327,116 @@
 
   <div
     bind:this={node}
-    class="bg relative h-[600px] w-[600px] overflow-hidden mx-auto"
+    class="bg flex items-center justify-center relative h-[600px] w-[600px] overflow-hidden mx-auto"
+    style={`font-family: "${selectedFont}";`}
   >
+    <!-- <div class="target text-white p-20 bg-green-400" bind:this={target}>
+      Target
+    </div>
+    <Moveable
+      {target}
+      origin={true}
+      edge={true}
+      draggable={true}
+      on:dragStart={({ detail: e }) => {
+        e.set(frame.translate)
+      }}
+      on:drag={({ detail: e }) => {
+        frame.translate = e.beforeTranslate
+        e.target.style.transform = `translate(${e.beforeTranslate[0]}px, ${e.beforeTranslate[1]}px)`
+      }}
+    /> -->
+    <div class="absolute text-transparent select-none top-[9999px]">
+      <div bind:this={textNode} />
+    </div>
     <div
-      class={`absolute inset-0`}
-      style={`transform: translateY(${-spacing + 40}px);`}
+      class="relative"
+      style={`transform: scale(${descriptionSize / 70}) rotate(-2deg)`}
     >
-      <svg
-        viewBox={`${0 + 30 - (descriptionSize - 70)} -10 300 300`}
-        class="absolute top-48 right-0 overflow-visible"
-        style={`transform: translateY(${spacing * 0}px);`}
+      <div
+        class={`relative text-[#71CC00] text-6xl`}
+        style={`transform: translateY(${-spacing}px);`}
+        bind:this={container}
       >
-        <path id="curve" d={curve1} class="fill-transparent" />
-        <text width="600">
-          <textPath
-            xlink:href="#curve"
-            class="fill-[#71CC00]"
-            text-anchor="end"
-            startOffset="100%"
-            style={`font-family: "${selectedFont}"; font-size: ${descriptionSize}px;`}
-          >
+        <div
+          class="element -my-16 select-none"
+          style={`transform: translateY(${
+            spacing * 0
+          }px) rotate(0deg); font-family: "${selectedFont}";`}
+        >
+          {@html el}
+        </div>
+
+        <div
+          class="element -my-16 select-none"
+          style={`transform: translateY(${
+            spacing * 1
+          }px) rotate(-0.5deg); font-family: "${selectedFont}";`}
+        >
+          {@html el}
+        </div>
+
+        <div
+          class="element -my-16 select-none"
+          style={`transform: translateY(${
+            spacing * 2
+          }px) rotate(-0.9deg); font-family: "${selectedFont}";`}
+        >
+          {@html el}
+        </div>
+
+        <div
+          class="relative element -my-16 select-none"
+          style={`transform: translateY(${
+            spacing * 2
+          }px) rotate(-0.9deg); font-family: "${selectedFont}";`}
+        >
+          <span class="invisible">
             {title}
-          </textPath>
-        </text>
-      </svg>
-      <svg
-        viewBox={`${0 + 30 - (descriptionSize - 70)} -10 300 300`}
-        class="absolute top-64 left-4 overflow-visible"
-        style={`transform: translateY(${spacing * 1}px);`}
-      >
-        <path id="curve" d={curve2} class="fill-transparent" />
-        <text width="300">
-          <textPath
-            xlink:href="#curve"
-            class="fill-[#71CC00]"
-            text-anchor="end"
-            startOffset="100%"
-            style={`font-family: "${selectedFont}"; font-size: ${descriptionSize}px;`}
+          </span>
+          <svg
+            viewBox={`0 0 130 40`}
+            preserveAspectRatio="none"
+            class="absolute top-12 inset-x-0 h-12 w-[105%] overflow-visible"
+            style={`transform: translateY(${
+              spacing * 2 - 36
+            }px); transform-box: fill-box; transform-origin: bottom;`}
           >
-            {title}
-          </textPath>
-        </text>
-      </svg>
-      <svg
-        viewBox={`${0 + 30 - (descriptionSize - 70)} -10 300 300`}
-        class="absolute top-80 left-8 overflow-visible"
-        style={`transform: translateY(${spacing * 2}px);`}
-      >
-        <path id="curve" d={curve3} class="fill-transparent" />
-        <text width="300" height="300">
-          <textPath
-            xlink:href="#curve"
-            class="fill-[#71CC00]"
-            text-anchor="end"
-            startOffset="100%"
-            style={`font-family: "${selectedFont}"; font-size: ${descriptionSize}px;`}
-          >
-            {title}
-          </textPath>
-        </text>
-      </svg>
-      <svg
-        viewBox={`${-60 + 15 - (descriptionSize - 70)} -10 200 100`}
-        width={`${(100 * descriptionSize) / 70}%`}
-        class="absolute top-96 right-0 overflow-visible"
-        style={`transform: translateY(${
-          spacing * 2 - 36
-        }px); transform-origin: top right;`}
-      >
-        <path d={underline} class="fill-[#71CC00]" />
-      </svg>
+            <path d={underline} class="fill-[#71CC00]" />
+          </svg>
+        </div>
+
+        <!-- <div class="target bg-[#71CC00] w-60 h-20" bind:this={target} />
+
+        <Moveable
+          {target}
+          warpable={true}
+          renderDirections={["nw", "n", "ne", "w", "e", "sw", "s", "se"]}
+          edge={false}
+          zoom={1}
+          origin={false}
+          padding={{ left: 0, top: 0, right: 0, bottom: 0 }}
+          on:warpStart={({ detail: e }) => {
+            e.set(frame.matrix)
+          }}
+          on:warp={({ detail: e }) => {
+            frame.matrix = e.matrix
+            e.target.style.transform = `translate(${frame.translate[0]}px, ${
+              frame.translate[1]
+            }px) matrix3d(${frame.matrix.join(",")})`
+          }}
+          draggable={true}
+          on:dragStart={({ detail: e }) => {
+            e.set(frame.translate)
+          }}
+          on:drag={({ detail: e }) => {
+            frame.translate = e.beforeTranslate
+            e.target.style.transform = `translate(${frame.translate[0]}px, ${
+              frame.translate[1]
+            }px) matrix3d(${frame.matrix.join(",")})`
+          }}
+        /> -->
+      </div>
     </div>
   </div>
   <div
@@ -244,7 +496,7 @@
     <input
       type="range"
       min="50"
-      max="100"
+      max="240"
       bind:value={descriptionSize}
       class="slider"
     />
@@ -254,9 +506,9 @@
     <p class="text-xl w-1/3">ระยะบรรทัด</p>
     <input
       type="range"
-      min="10"
-      max="100"
-      bind:value={spacing}
+      min="30"
+      max="200"
+      bind:value={spacingMicro}
       class="slider"
     />
   </div>
@@ -336,9 +588,9 @@
     );
   }
 
-  main {
+  /* main {
     font-family: "Prompt", sans-serif;
-  }
+  } */
 
   input[type="range"] {
     width: 100%;

@@ -24,10 +24,14 @@
     "vite": "^2.9.9"
   },
   "dependencies": {
+    "circletype": "^2.3.0",
     "copy-image-clipboard": "^2.1.2",
-    "dom-to-image": "^2.6.0",
     "file-saver": "^2.0.5",
+    "grapheme-splitter": "^1.0.4",
+    "html-to-image": "^1.9.0",
+    "moveable": "^0.29.8",
     "paste-image": "^0.0.3",
+    "svelte-moveable": "^0.21.8",
     "svelte-share-buttons-component": "^1.5.0"
   }
 }
